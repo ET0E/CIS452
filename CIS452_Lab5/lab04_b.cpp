@@ -31,7 +31,7 @@ void do_greeting2 (int num_iter, string text)
 
     cout << "From " << this_thread::get_id() << " " << text << endl;
     for (int loop = 0;  loop < num_iter;  loop++) { 
-        //sleep (1);
+        sleep (1);
         if (!val) 
             cout << loop << " Hello ";  // Intentionally no newline
         else 

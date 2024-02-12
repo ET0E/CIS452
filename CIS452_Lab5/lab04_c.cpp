@@ -13,7 +13,7 @@ int main() {
 
     // start thread at a function
     std::thread one(do_greeting);
-    usleep(2000000);
+    //sleep(2);
 
     one.join();  // join() or detach() is required
     return 0;
