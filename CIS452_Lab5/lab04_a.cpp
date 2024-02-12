@@ -33,7 +33,7 @@ void do_greeting3(char arg)
     //print out a message
     cout << "Child receiving " << arg << " initially sees " 
         << sharedData << endl;
-    sleep(1);
+    sleep(3);
     sharedData++;
     cout << "Child receiving " << arg << " now sees " 
         << sharedData << endl;
