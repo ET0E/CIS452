@@ -10,6 +10,7 @@
 int main () {
     int shmId;
     char *shmPtr;
+    struct shmid_ds shmid_ds_info;
 
     if ((shmId =
          shmget (IPC_PRIVATE, FOO,
@@ -27,6 +28,13 @@ int main () {
         perror ("just can't let go\n");
         exit (1);
     }
+
+    if (shmctl(shmId, IPC_STAT, &shmid_ds_info) < 0) {
+        perror("shmctl IPC_STAT failed");
+        exit(1);
+    }
+    printf("Size of shared memory segment %lu\n", shmid_ds_info.shm_segsz);
+
     if (shmctl (shmId, IPC_RMID, 0) < 0) {
         perror ("can't deallocate\n");
         exit (1);
