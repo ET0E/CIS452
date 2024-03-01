@@ -5,12 +5,13 @@
 void* swapper(void*);
 
 int arr[2];
+pthread_mutex_t mutex;
 
 int main(int argc, char* argv[]) {
     pthread_t who;
     long int loop;
 
-    loop = (int)argv[0];
+    loop = atoi(argv[1]);
 
     arr[0] = 0;
     arr[1] = 1;
