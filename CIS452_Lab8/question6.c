@@ -1,16 +1,19 @@
-#define _GNU_SOURCE 
 #include <stdio.h>
 #include <stdlib.h>
 #include <sched.h>
-#include <unistd.h>
 
-int main(){
+int main() {
+    int policy;
     struct sched_param param;
 
-    int foo = sched_getscheduler(getpid());
-    printf("%d\n", foo);
+    // Get the scheduling policy of the current process
+    policy = sched_getscheduler(0);
+    
+    // Print the scheduling policy ID
+    printf("Scheduling Policy ID: %d\n", policy);
 
-    switch (foo) {
+    // Get and print the corresponding scheduling policy name
+    switch (policy) {
         case SCHED_OTHER:
             printf("Scheduling Policy: SCHED_OTHER\n");
             break;
@@ -19,6 +22,15 @@ int main(){
             break;
         case SCHED_RR:
             printf("Scheduling Policy: SCHED_RR\n");
+            break;
+        case SCHED_BATCH:
+            printf("Scheduling Policy: SCHED_BATCH\n");
+            break;
+        case SCHED_IDLE:
+            printf("Scheduling Policy: SCHED_IDLE\n");
+            break;
+        case SCHED_DEADLINE:
+            printf("Scheduling Policy: SCHED_DEADLINE\n");
             break;
         default:
             printf("Unknown Scheduling Policy\n");
