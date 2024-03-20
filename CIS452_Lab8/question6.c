@@ -2,6 +2,19 @@
 #include <stdlib.h>
 #include <sched.h>
 
+// Define constants if not available
+#ifndef SCHED_DEADLINE
+#define SCHED_DEADLINE 6
+#endif
+
+#ifndef SCHED_BATCH
+#define SCHED_BATCH 3
+#endif
+
+#ifndef SCHED_IDLE
+#define SCHED_IDLE 5
+#endif
+
 int main() {
     int policy;
     struct sched_param param;
