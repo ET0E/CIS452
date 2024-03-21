@@ -6,7 +6,7 @@
 #include <sched.h>
 #include <errno.h>
 
-#define NLOOPS 500000000
+#define NLOOPS 40000000000
 
 int main() {
 
