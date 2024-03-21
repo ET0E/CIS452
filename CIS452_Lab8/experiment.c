@@ -1,5 +1,5 @@
 #define _GNU_SOURCE
-#include <sys/types.h>
+#include <time.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +26,7 @@ int main() {
 
     //set the scheduler to IDLE and give the child process an affinity
     if(pid1 == 0){
+        clock_t start, end;
         param.sched_priority = 0;
         if (sched_setscheduler(getpid(), SCHED_IDLE, &param) == -1) {
             perror("sched_setscheduler");
@@ -37,6 +38,8 @@ int main() {
             exit(EXIT_FAILURE);
         }
 
+        start = clock();
+
         long sum = 0;
         for (long j = 0; j < NLOOPS; j++) {
             sum += j;  // meaningless work to keep the CPU busy
@@ -44,12 +47,17 @@ int main() {
 
         printf("SCHED_IDLE\n");
 
+        end = clock();
+
         return 0;
     }
 
     pid2 = fork();
 
     if(pid2 == 0){
+
+        clock_t start, end;
+
         param.sched_priority = 0;
         if (sched_setscheduler(getpid(), SCHED_OTHER, &param) == -1) {
             perror("sched_setscheduler");
@@ -61,12 +69,16 @@ int main() {
             exit(EXIT_FAILURE);
         }
 
+        start = clock();
+
         long sum = 0;
         for (long j = 0; j < NLOOPS; j++) {
             sum += j;  // meaningless work to keep the CPU busy
         }
 
-        printf("SCHED_OTHER\n");
+        end = clock();
+
+        printf("SCHED_OTHER Time: \n");
 
         return 0;
     }
