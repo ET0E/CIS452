@@ -86,7 +86,7 @@ int main() {
 
         cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
-        printf("SCHED_OTHER Time: \n", cpu_time_used);
+        printf("SCHED_OTHER Time: %f\n", cpu_time_used);
 
         return 0;
     }
