@@ -26,7 +26,10 @@ int main() {
 
     //set the scheduler to IDLE and give the child process an affinity
     if(pid1 == 0){
+        
         clock_t start, end;
+        double cpu_time_used;
+        
         param.sched_priority = 0;
         if (sched_setscheduler(getpid(), SCHED_IDLE, &param) == -1) {
             perror("sched_setscheduler");
@@ -44,10 +47,12 @@ int main() {
         for (long j = 0; j < NLOOPS; j++) {
             sum += j;  // meaningless work to keep the CPU busy
         }
-
-        printf("SCHED_IDLE\n");
-
+        
         end = clock();
+
+        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+        printf("SCHED_IDLE Time: %f\n", cpu_time_used);
 
         return 0;
     }
@@ -57,6 +62,7 @@ int main() {
     if(pid2 == 0){
 
         clock_t start, end;
+        double cpu_time_used;
 
         param.sched_priority = 0;
         if (sched_setscheduler(getpid(), SCHED_OTHER, &param) == -1) {
@@ -78,7 +84,9 @@ int main() {
 
         end = clock();
 
-        printf("SCHED_OTHER Time: \n");
+        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+        printf("SCHED_OTHER Time: \n", cpu_time_used);
 
         return 0;
     }
